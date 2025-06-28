@@ -1,171 +1,149 @@
-# Tekoá Hub - Backend
+# 🏛️ Tekoá Hub - Backend
 
-**Versão submetida:** Intermediária (Nível Recomendado)  
+**Versão submetida:** Intermediária (Nível Padrão)  
 **Público-alvo:** Povos Indígenas  
-**ODS:** ODS 10 – Redução das Desigualdades, ODS 4 – Educação de Qualidade
+**ODS:** ODS 4 – Educação de Qualidade, ODS 10 – Redução das Desigualdades
 
-## Descrição
+Backend do Tekoá Hub: API para preservação e valorização da cultura indígena brasileira.
 
-O Tekoá Hub é uma plataforma web para valorização, preservação e divulgação da herança cultural dos povos indígenas brasileiros. O backend foi desenvolvido em Java com Spring Boot, seguindo arquitetura MVC, e expõe uma API RESTful para cadastro, consulta, edição e exclusão de conteúdos culturais e categorias.
+## 🎯 Sobre o Projeto
 
-## Funcionalidades
+O Tekoá Hub é uma plataforma digital dedicada à preservação e divulgação da cultura indígena brasileira. O backend expõe uma API RESTful para cadastro, consulta, edição e exclusão de conteúdos culturais e categorias, integrando-se ao frontend React.
 
-- CRUD completo para as entidades:
-  - **Category** (Categoria de conteúdo cultural)
-  - **Content** (Conteúdo cultural: histórias, arte, música, etc)
-- Endpoints REST documentados
-- Integração com banco de dados relacional (MySQL em produção, H2 em desenvolvimento)
-- Organização em pacotes por responsabilidade (controller, service, repository, model, dto, mapper, config, exception)
-- Tratamento global de exceções
-- Configuração de CORS e segurança básica
+### Público-Alvo
+- **Povos Indígenas** - Para preservar e compartilhar sua cultura
+- **Educadores** - Para usar em sala de aula
+- **Público Geral** - Para conhecer e valorizar a cultura indígena
 
-## Tecnologias Utilizadas
+### ODS Alinhadas
+- **ODS 4 - Educação de Qualidade**: Promovendo educação inclusiva sobre cultura indígena
+- **ODS 10 - Redução das Desigualdades**: Valorizando e preservando culturas minoritárias
 
-- Java 17
-- Spring Boot 3
-- Spring Data JPA
-- MySQL (produção) / H2 (desenvolvimento)
-- Maven
-- Lombok
+## 🚀 Tecnologias Utilizadas
 
-## Como Executar Localmente
+- **Java 17**
+- **Spring Boot 3**
+- **Spring Data JPA**
+- **MySQL** (produção) / **H2** (desenvolvimento)
+- **Maven**
+- **Lombok**
 
-### Pré-requisitos
+## 📋 Pré-requisitos
 
 - Java 17+
 - Maven 3.8+
 - (Opcional) MySQL rodando, caso queira testar com banco real
 
-### Passos
+## 🔧 Configuração
 
-1. **Clone o repositório:**
-   ```bash
-   git clone https://github.com/seu-usuario/tekoa-hub-backend.git
-   cd tekoa-hub-backend
-   ```
+### 1. Clone o repositório
+```bash
+git clone <url-do-repositorio>
+cd tekoa-hub-backend
+```
 
-2. **Configure o banco de dados:**
-   - Por padrão, o projeto usa H2 em memória para desenvolvimento.
-   - Para usar MySQL, edite `src/main/resources/application.properties`:
-     ```properties
-     spring.datasource.url=jdbc:mysql://localhost:3306/tekoa_db
-     spring.datasource.username=seu_usuario
-     spring.datasource.password=sua_senha
-     spring.jpa.hibernate.ddl-auto=update
-     spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
-     ```
+### 2. Configure o banco de dados
+- Por padrão, o projeto usa H2 em memória para desenvolvimento.
+- Para usar MySQL, edite `src/main/resources/application.properties`:
+  ```properties
+  spring.datasource.url=jdbc:mysql://localhost:3306/tekoa_db
+  spring.datasource.username=seu_usuario
+  spring.datasource.password=sua_senha
+  spring.jpa.hibernate.ddl-auto=update
+  spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+  ```
 
-3. **Build e execute:**
-   ```bash
-   ./mvnw spring-boot:run
-   ```
-   O backend estará disponível em: [http://localhost:8080](http://localhost:8080)
+### 3. Build e execute
+```bash
+./mvnw spring-boot:run
+```
+O backend estará disponível em: [http://localhost:8080](http://localhost:8080)
 
-4. **Acesse o console H2 (opcional):**
-   - [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
-   - JDBC URL: `jdbc:h2:mem:tekoa_db`
+### 4. Acesse o console H2 (opcional)
+- [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
+- JDBC URL: `jdbc:h2:mem:tekoa_db`
 
-## Endpoints Principais
+## 🏗️ Estrutura do Projeto
 
-- `/api/categories` - CRUD de categorias
-- `/api/contents` - CRUD de conteúdos culturais
+```
+src/
+├── main/
+│   ├── java/com/tekoahub/
+│   │   ├── controller/   # Controllers REST
+│   │   ├── service/      # Lógica de negócio
+│   │   ├── repository/   # Acesso a dados (JPA)
+│   │   ├── model/        # Entidades
+│   │   ├── dto/          # Data Transfer Objects
+│   │   ├── mapper/       # Conversão entre entidades e DTOs
+│   │   ├── config/       # Configurações (CORS, segurança)
+│   │   └── exception/    # Tratamento global de erros
+│   └── resources/
+│       └── application.properties
+└── test/
+```
+
+## 📱 Funcionalidades
+
+- CRUD completo para as entidades:
+  - **Category** (Categoria de conteúdo cultural)
+  - **Content** (Conteúdo cultural: histórias, arte, música, etc)
+- Endpoints REST documentados
+- Integração com banco de dados relacional (MySQL/H2)
+- Organização em pacotes por responsabilidade
+- Tratamento global de exceções
+- Configuração de CORS e segurança básica
+
+## 🔌 Integração com Frontend
+
+O backend expõe endpoints REST para integração com o frontend React:
+
+### Endpoints Principais
+- `GET /api/categories` - Listar categorias
+- `POST /api/categories` - Criar categoria
+- `PUT /api/categories/{id}` - Atualizar categoria
+- `DELETE /api/categories/{id}` - Excluir categoria
+- `GET /api/contents` - Listar conteúdos
+- `POST /api/contents` - Criar conteúdo
+- `PUT /api/contents/{id}` - Atualizar conteúdo
+- `DELETE /api/contents/{id}` - Excluir conteúdo
 
 > Para detalhes de cada endpoint, consulte o arquivo [API.md](./API.md).
 
-## Organização dos Pacotes
+## 📊 Dados de Exemplo
 
-- `controller/` - Controllers REST
-- `service/` - Lógica de negócio
-- `repository/` - Acesso a dados (JPA)
-- `model/` - Entidades
-- `dto/` - Data Transfer Objects
-- `mapper/` - Conversão entre entidades e DTOs
-- `config/` - Configurações (CORS, segurança)
-- `exception/` - Tratamento global de erros
+O backend inclui dados de exemplo com:
+- 5 categorias culturais
+- 8 conteúdos culturais
+- Imagens e descrições completas
 
-## Commits
+## 🤝 Contribuição
 
-O projeto segue o padrão [Conventional Commits](https://www.conventionalcommits.org/pt-br/v1.0.0/), facilitando o entendimento do histórico e automação de changelog.
-
-## Como contribuir
-
-1. Faça um fork do projeto
-2. Crie uma branch: `git checkout -b minha-feature`
-3. Commit com mensagem convencional: `git commit -m "feat: minha nova feature"`
-4. Push: `git push origin minha-feature`
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b minha-feature`)
+3. Commit suas mudanças seguindo Conventional Commits (`git commit -m 'feat: minha feature'`)
+4. Push para a branch (`git push origin minha-feature`)
 5. Abra um Pull Request
 
-## Licença
+## 📝 Commits
 
-Este projeto é open-source, para fins educacionais e sociais.
+Este projeto segue o padrão [Conventional Commits](https://www.conventionalcommits.org/pt-br/v1.0.0/).
 
-## 🔧 Pré-requisitos
+## 📄 Licença
 
-### 1. Git Instalado
-```bash
-# Ubuntu/Debian
-sudo apt-get install git
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
-# macOS
-brew install git
+## 👥 Autores
 
-# Windows
-# Baixe em: https://git-scm.com/download/win
-```
+- **Seu Nome** - Desenvolvimento inicial
+- **Outros Participantes** (se houver)
 
-### 2. Conta GitHub
-- Crie uma conta em: https://github.com
-- Configure autenticação (SSH key ou Personal Access Token)
+## 🙏 Agradecimentos
 
-### 3. Repositório GitHub
-Crie o repositório no GitHub:
-1. Acesse: https://github.com/new
-2. Nome: `tekoa-cultural-archive-hub-backend`
-3. Descrição: `Backend do Tekoá Hub`
-4. **NÃO** inicialize com README, .gitignore ou license
-5. Clique em "Create repository"
+- Comunidades indígenas brasileiras
+- Professores e orientadores
+- Comunidade open source
 
-## 📋 Passo a Passo
-
-### Primeira Configuração
-
-1. **Clone ou baixe o projeto**
-   ```bash
-   git clone <url-do-seu-repositorio>
-   cd tekoa-cultural-archive-hub-backend
-   ```
-
-2. **Execute o setup**
-   ```bash
-   chmod +x setup-github.sh
-   ./setup-github.sh
-   ```
-
-3. **Siga as instruções do script**
-   - Digite seu nome de usuário do GitHub
-   - Confirme a criação do repositório
-   - Aguarde o push inicial
-
-### Para Colaboradores
-
-1. **Clone o repositório**
-   ```bash
-   git clone https://github.com/seu-usuario/tekoa-cultural-archive-hub-backend.git
-   cd tekoa-cultural-archive-hub-backend
-   ```
-
-2. **Configure seu ambiente**
-   ```bash
-   # Configure seu nome e email
-   git config user.name "Seu Nome"
-   git config user.email "seu-email@exemplo.com"
-   ```
-
-3. **Use o script de deploy**
-   ```bash
-   ./deploy.sh
-   ```
-   
 ---
 
-**Desenvolvido para o Tekoá Hub** 🏛️ 
+**Status:** ✅ Funcional e Integrado  
+**Última Atualização:** Junho 2024
