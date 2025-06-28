@@ -1,6 +1,6 @@
 # Tekoá Hub - Backend
 
-**Versão submetida:** Intermediária (Nível Padrão)  
+**Versão submetida:** Intermediária (Nível Recomendado)  
 **Público-alvo:** Povos Indígenas  
 **ODS:** ODS 10 – Redução das Desigualdades, ODS 4 – Educação de Qualidade
 
