@@ -72,11 +72,6 @@ O Tekoá Hub é uma plataforma web para valorização, preservação e divulgaç
 
 > Para detalhes de cada endpoint, consulte o arquivo [API.md](./API.md).
 
-## Deploy
-
-- O deploy pode ser feito gratuitamente no [Render](https://render.com/) (backend) e [Vercel/Netlify](https://vercel.com/) (frontend).
-- O link do deploy, se disponível, deve ser informado aqui.
-
 ## Organização dos Pacotes
 
 - `controller/` - Controllers REST
@@ -103,52 +98,6 @@ O projeto segue o padrão [Conventional Commits](https://www.conventionalcommits
 ## Licença
 
 Este projeto é open-source, para fins educacionais e sociais.
-
-# 🚀 Deploy Scripts - Backend Tekoá Hub
-
-Este diretório contém scripts para facilitar o deploy e gerenciamento do repositório GitHub do backend.
-
-## 📁 Arquivos de Script
-
-### 1. `setup-github.sh` - Configuração Inicial
-Script para configurar o repositório GitHub pela primeira vez.
-
-**Funcionalidades:**
-- ✅ Verifica pré-requisitos (Git instalado)
-- ✅ Configura Git global se necessário
-- ✅ Inicializa repositório Git local
-- ✅ Configura repositório remoto no GitHub
-- ✅ Faz primeiro commit e push
-- ✅ Cria branch main
-
-**Como usar:**
-```bash
-# Tornar executável
-chmod +x setup-github.sh
-
-# Executar
-./setup-github.sh
-```
-
-### 2. `deploy.sh` - Deploy Contínuo
-Script para fazer deploy de atualizações para o GitHub.
-
-**Funcionalidades:**
-- ✅ Verifica mudanças no repositório
-- ✅ Adiciona arquivos ao staging
-- ✅ Solicita mensagem de commit
-- ✅ Faz commit e push
-- ✅ Trata primeiro push automaticamente
-- ✅ Exibe informações do repositório
-
-**Como usar:**
-```bash
-# Tornar executável
-chmod +x deploy.sh
-
-# Executar
-./deploy.sh
-```
 
 ## 🔧 Pré-requisitos
 
@@ -197,40 +146,6 @@ Crie o repositório no GitHub:
    - Confirme a criação do repositório
    - Aguarde o push inicial
 
-### Deploy Contínuo
-
-Após a configuração inicial, use o script de deploy:
-
-```bash
-chmod +x deploy.sh
-./deploy.sh
-```
-
-O script irá:
-1. Verificar se há mudanças
-2. Adicionar arquivos modificados
-3. Solicitar mensagem de commit
-4. Fazer push para o GitHub
-
-## 🎯 Fluxo de Trabalho Recomendado
-
-### Para Desenvolvedores
-
-1. **Desenvolva suas mudanças**
-   ```bash
-   # Faça suas alterações no código
-   # Teste localmente
-   ```
-
-2. **Deploy para GitHub**
-   ```bash
-   ./deploy.sh
-   ```
-
-3. **Verifique no GitHub**
-   - Acesse: https://github.com/seu-usuario/tekoa-cultural-archive-hub-backend
-   - Confirme que as mudanças estão lá
-
 ### Para Colaboradores
 
 1. **Clone o repositório**
@@ -250,81 +165,7 @@ O script irá:
    ```bash
    ./deploy.sh
    ```
-
-## 🔍 Troubleshooting
-
-### Erro: "Git não está instalado"
-```bash
-# Ubuntu/Debian
-sudo apt-get update
-sudo apt-get install git
-
-# macOS
-brew install git
-
-# Windows
-# Baixe e instale do site oficial
-```
-
-### Erro: "Falha ao fazer push"
-1. Verifique suas credenciais do GitHub
-2. Confirme que o repositório existe
-3. Verifique suas permissões
-4. Teste a conexão: `git remote -v`
-
-### Erro: "Repositório remoto não encontrado"
-```bash
-# Configure manualmente
-git remote add origin https://github.com/seu-usuario/tekoa-cultural-archive-hub-backend.git
-```
-
-### Erro: "Branch não encontrada"
-```bash
-# Crie a branch main
-git checkout -b main
-git push --set-upstream origin main
-```
-
-## 📊 Comandos Úteis
-
-### Verificar Status
-```bash
-git status
-git log --oneline -5
-git remote -v
-```
-
-### Atualizar Local
-```bash
-git pull origin main
-```
-
-### Ver Histórico
-```bash
-git log --oneline --graph
-```
-
-### Desfazer Último Commit
-```bash
-git reset --soft HEAD~1
-```
-
-## 🔗 Links Úteis
-
-- **GitHub**: https://github.com
-- **Documentação Git**: https://git-scm.com/doc
-- **GitHub CLI**: https://cli.github.com
-- **Git Credential Manager**: https://github.com/GitCredentialManager/git-credential-manager
-
-## 📞 Suporte
-
-Se encontrar problemas:
-
-1. Verifique os logs do script
-2. Consulte a documentação do Git
-3. Verifique a documentação do GitHub
-4. Abra uma issue no repositório
-
+   
 ---
 
 **Desenvolvido para o Tekoá Hub** 🏛️ 
