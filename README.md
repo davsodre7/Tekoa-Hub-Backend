@@ -4,11 +4,11 @@
 **Público-alvo:** Povos Indígenas  
 **ODS:** ODS 4 – Educação de Qualidade, ODS 10 – Redução das Desigualdades
 
-Backend do Tekoá Hub: API para preservação e valorização da cultura indígena brasileira.
+Backend do Tekoá Hub: API RESTful para preservação e valorização da cultura indígena brasileira.
 
 ## 🎯 Sobre o Projeto
 
-O Tekoá Hub é uma plataforma digital dedicada à preservação e divulgação da cultura indígena brasileira. O backend expõe uma API RESTful para cadastro, consulta, edição e exclusão de conteúdos culturais e categorias, integrando-se ao frontend React.
+O Tekoá Hub é uma plataforma digital dedicada à preservação e divulgação da cultura indígena brasileira. O backend Spring Boot oferece uma API RESTful robusta para cadastro, consulta, edição e exclusão de conteúdos culturais e categorias, integrando-se ao frontend React.
 
 ### Público-Alvo
 - **Povos Indígenas** - Para preservar e compartilhar sua cultura
@@ -21,18 +21,27 @@ O Tekoá Hub é uma plataforma digital dedicada à preservação e divulgação 
 
 ## 🚀 Tecnologias Utilizadas
 
-- **Java 17**
-- **Spring Boot 3**
-- **Spring Data JPA**
-- **MySQL** (produção) / **H2** (desenvolvimento)
-- **Maven**
-- **Lombok**
+### **Core Framework**
+- **Java 17** - Linguagem de programação principal
+- **Spring Boot 3.5.3** - Framework para aplicações Java
+- **Spring Data JPA** - Persistência de dados
+- **Maven** - Gerenciador de dependências
+
+### **Database & Persistence**
+- **MySQL 8.0+** - Banco de dados principal
+- **Hibernate** - ORM para mapeamento objeto-relacional
+- **Jakarta Validation** - Validação de dados
+
+### **Security & Utilities**
+- **Spring Security Crypto** - Criptografia de dados sensíveis
+- **Lombok** - Redução de boilerplate code
+- **Spring Web** - Construção de APIs REST
 
 ## 📋 Pré-requisitos
 
-- Java 17+
-- Maven 3.8+
-- (Opcional) MySQL rodando, caso queira testar com banco real
+- **Java 17+**
+- **Maven 3.8+**
+- **MySQL 8.0+** rodando localmente
 
 ## 🔧 Configuração
 
@@ -43,25 +52,36 @@ cd tekoa-hub-backend
 ```
 
 ### 2. Configure o banco de dados
-- Por padrão, o projeto usa H2 em memória para desenvolvimento.
-- Para usar MySQL, edite `src/main/resources/application.properties`:
-  ```properties
-  spring.datasource.url=jdbc:mysql://localhost:3306/tekoa_db
-  spring.datasource.username=seu_usuario
-  spring.datasource.password=sua_senha
-  spring.jpa.hibernate.ddl-auto=update
-  spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
-  ```
+O projeto utiliza MySQL como banco de dados principal para armazenar os dados culturais indígenas. O banco de dados é responsável por:
+
+- **Persistência de dados culturais**: Armazena categorias e conteúdos culturais indígenas
+- **Gestão de relacionamentos**: Mantém a estrutura hierárquica entre categorias e conteúdos
+- **Integridade dos dados**: Garante consistência e validação dos dados culturais
+- **Performance**: Otimiza consultas para busca e filtragem de conteúdos
+
+Para configurar o MySQL, certifique-se de que o MySQL está rodando e edite `src/main/resources/application.properties` se necessário:
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/tekoa_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=root
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+```
 
 ### 3. Build e execute
 ```bash
 ./mvnw spring-boot:run
+# ou
+mvn spring-boot:run
 ```
+
 O backend estará disponível em: [http://localhost:8080](http://localhost:8080)
 
-### 4. Acesse o console H2 (opcional)
-- [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
-- JDBC URL: `jdbc:h2:mem:tekoa_db`
+### 4. Acesse o banco MySQL (opcional)
+- Use um cliente MySQL como MySQL Workbench, phpMyAdmin ou DBeaver
+- Conecte-se ao banco `tekoa_db` na porta 3306
+- Usuário: `root`, Senha: `root`
 
 ## 🏗️ Estrutura do Projeto
 
@@ -70,63 +90,230 @@ src/
 ├── main/
 │   ├── java/com/tekoahub/
 │   │   ├── controller/   # Controllers REST
+│   │   │   ├── CategoryController.java    # API de categorias
+│   │   │   └── ContentController.java     # API de conteúdos
 │   │   ├── service/      # Lógica de negócio
+│   │   │   ├── CategoryService.java       # Serviços de categoria
+│   │   │   └── ContentService.java        # Serviços de conteúdo
 │   │   ├── repository/   # Acesso a dados (JPA)
+│   │   │   ├── CategoryRepository.java    # Repository de categorias
+│   │   │   └── ContentRepository.java     # Repository de conteúdos
 │   │   ├── model/        # Entidades
+│   │   │   ├── Category.java              # Entidade categoria
+│   │   │   └── Content.java               # Entidade conteúdo
 │   │   ├── dto/          # Data Transfer Objects
+│   │   │   ├── CategoryRequestDTO.java    # DTO de requisição categoria
+│   │   │   ├── CategoryResponseDTO.java   # DTO de resposta categoria
+│   │   │   ├── ContentRequestDTO.java     # DTO de requisição conteúdo
+│   │   │   └── ContentResponseDTO.java    # DTO de resposta conteúdo
 │   │   ├── mapper/       # Conversão entre entidades e DTOs
-│   │   ├── config/       # Configurações (CORS, segurança)
-│   │   └── exception/    # Tratamento global de erros
+│   │   │   ├── CategoryMapper.java        # Mapper de categoria
+│   │   │   └── ContentMapper.java         # Mapper de conteúdo
+│   │   ├── config/       # Configurações
+│   │   │   ├── SecurityConfig.java        # Configuração de segurança
+│   │   │   └── WebConfig.java             # Configuração web/CORS
+│   │   ├── exception/    # Tratamento global de erros
+│   │   │   ├── ApiError.java              # Modelo de erro da API
+│   │   │   └── GlobalExceptionHandler.java # Handler global
+│   │   └── TekoaHubApplication.java       # Classe principal
 │   └── resources/
-│       └── application.properties
+│       ├── application.properties          # Configurações principais
+│       └── static/                        # Arquivos estáticos
 └── test/
+    ├── java/com/tekoahub/
+    │   └── TekoaHubApplicationTests.java  # Testes da aplicação
+    └── resources/
+        └── application-test.properties     # Configurações de teste
 ```
+
+## 🗄️ Arquitetura do Banco de Dados
+
+O MySQL é o banco de dados principal do Tekoá Hub, responsável por:
+
+### **Entidades Principais:**
+- **Category**: Categorias culturais (ex: Artesanato, Dança, Música, Culinária)
+- **Content**: Conteúdos culturais específicos com imagens, descrições e categorias
+
+### **Funcionalidades do Banco:**
+- **Persistência robusta**: Armazena dados culturais indígenas de forma permanente
+- **Relacionamentos**: Mantém integridade referencial entre categorias e conteúdos
+- **Busca otimizada**: Índices para consultas rápidas de conteúdos por categoria
+- **Escalabilidade**: Suporte a grande volume de dados culturais
+- **Backup e recuperação**: Estratégias de backup para preservar dados culturais
+
+### **Ambientes:**
+- **Desenvolvimento**: `tekoa_db` - Banco principal para desenvolvimento
+- **Testes**: `tekoa_test_db` - Banco isolado para execução de testes automatizados
 
 ## 📱 Funcionalidades
 
-- CRUD completo para as entidades:
-  - **Category** (Categoria de conteúdo cultural)
-  - **Content** (Conteúdo cultural: histórias, arte, música, etc)
-- Endpoints REST documentados
-- Integração com banco de dados relacional (MySQL/H2)
-- Organização em pacotes por responsabilidade
-- Tratamento global de exceções
-- Configuração de CORS e segurança básica
+### **CRUD Completo**
+- ✅ **Category** - Gerenciamento completo de categorias culturais
+- ✅ **Content** - Gerenciamento completo de conteúdos culturais
 
-## 🔌 Integração com Frontend
+### **API RESTful**
+- ✅ **Endpoints documentados** para todas as operações
+- ✅ **Validação de dados** com Jakarta Validation
+- ✅ **Tratamento global de exceções** com respostas padronizadas
+- ✅ **Configuração de CORS** para integração com frontend
+- ✅ **Criptografia de dados** sensíveis com Spring Security
+
+### **Integração e Performance**
+- ✅ **Integração com MySQL** para persistência robusta
+- ✅ **Organização em pacotes** por responsabilidade
+- ✅ **Mapeamento objeto-relacional** com JPA/Hibernate
+- ✅ **DTOs para transferência** de dados otimizada
+
+## 🔌 API Endpoints
 
 O backend expõe endpoints REST para integração com o frontend React:
 
-### Endpoints Principais
-- `GET /api/categories` - Listar categorias
-- `POST /api/categories` - Criar categoria
+### **Categorias (`/api/categories`)**
+- `GET /api/categories` - Listar todas as categorias
+- `GET /api/categories/{id}` - Buscar categoria por ID
+- `POST /api/categories` - Criar nova categoria
 - `PUT /api/categories/{id}` - Atualizar categoria
 - `DELETE /api/categories/{id}` - Excluir categoria
-- `GET /api/contents` - Listar conteúdos
-- `POST /api/contents` - Criar conteúdo
+
+### **Conteúdos (`/api/contents`)**
+- `GET /api/contents` - Listar todos os conteúdos
+- `GET /api/contents/{id}` - Buscar conteúdo por ID
+- `POST /api/contents` - Criar novo conteúdo
 - `PUT /api/contents/{id}` - Atualizar conteúdo
 - `DELETE /api/contents/{id}` - Excluir conteúdo
 
-> Para detalhes de cada endpoint, consulte o arquivo [API.md](./API.md).
+### **Exemplos de Uso**
 
-## 📊 Dados de Exemplo
+#### Criar uma categoria:
+```bash
+POST /api/categories
+Content-Type: application/json
 
-O backend inclui dados de exemplo com:
-- 5 categorias culturais
-- 8 conteúdos culturais
-- Imagens e descrições completas
+{
+  "name": "Artesanato",
+  "description": "Artesanato tradicional indígena",
+  "color": "#8B4513"
+}
+```
+
+#### Criar um conteúdo:
+```bash
+POST /api/contents
+Content-Type: application/json
+
+{
+  "title": "Uirapuru: O Pássaro Místico",
+  "description": "O uirapuru é uma ave lendária da Amazônia...",
+  "type": "story",
+  "ethnicity": "Diversas",
+  "region": "Amazônia",
+  "imageUrl": "/assets/Uirapuru.jpg",
+  "creator": "Anônimo",
+  "categoryId": 1
+}
+```
+
+## 📊 Dados Culturais
+
+O sistema trabalha com dados culturais indígenas incluindo:
+- **5 categorias culturais**: Histórias e Lendas, Artesanato, Música e Dança, Rituais e Cerimônias, Linguagem e Comunicação
+- **8 conteúdos culturais**: Uirapuru, Arte Marajoara, Toré dos Fulni-ô, Mandioca, Trançado Yanomami, Pintura Corporal Kadiwéu, Ritual do Quarup, Língua Guarani
+
+### **Exemplo de Categoria:**
+```json
+{
+  "id": 1,
+  "name": "Histórias e Lendas",
+  "description": "Narrativas tradicionais e lendas dos povos indígenas",
+  "color": "#8B4513"
+}
+```
+
+### **Exemplo de Conteúdo:**
+```json
+{
+  "id": 1,
+  "title": "Uirapuru: O Pássaro Místico",
+  "description": "O uirapuru é uma ave lendária da Amazônia...",
+  "type": "story",
+  "ethnicity": "Diversas",
+  "region": "Amazônia",
+  "imageUrl": "/assets/Uirapuru.jpg",
+  "creator": "Anônimo",
+  "category": {
+    "id": 1,
+    "name": "Histórias e Lendas"
+  }
+}
+```
+
+## 🚀 Scripts Disponíveis
+
+```bash
+./mvnw spring-boot:run    # Inicia aplicação em desenvolvimento
+./mvnw clean package      # Build para produção
+./mvnw test              # Executa testes
+./mvnw compile           # Compila o projeto
+./mvnw clean             # Limpa build anterior
+```
+
+## 🧪 Testes
+
+Para executar os testes:
+```bash
+./mvnw test
+```
+
+Os testes utilizam um banco MySQL separado (`tekoa_test_db`) para garantir isolamento.
+
+### **Configuração de Teste**
+- Banco isolado: `tekoa_test_db`
+- DDL automático: `create-drop`
+- Dados de teste carregados automaticamente
+
+## 🔒 Segurança
+
+- **Configuração de CORS** para integração com frontend
+- **Validação de dados** de entrada com Jakarta Validation
+- **Tratamento global de exceções** com respostas padronizadas
+- **Criptografia de dados** sensíveis com Spring Security Crypto
+
+## 🚀 Deploy
+
+### **Desenvolvimento Local**
+```bash
+./mvnw spring-boot:run
+```
+
+### **Build para Produção**
+```bash
+./mvnw clean package
+java -jar target/tekoa-hub-backend-0.0.1-SNAPSHOT.jar
+```
+
+### **Docker (opcional)**
+```bash
+docker build -t tekoa-hub-backend .
+docker run -p 8080:8080 tekoa-hub-backend
+```
 
 ## 🤝 Contribuição
 
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b minha-feature`)
-3. Commit suas mudanças seguindo Conventional Commits (`git commit -m 'feat: minha feature'`)
-4. Push para a branch (`git push origin minha-feature`)
-5. Abra um Pull Request
+1. **Fork** o projeto
+2. Crie uma **branch** para sua feature (`git checkout -b feature/AmazingFeature`)
+3. **Commit** suas mudanças seguindo Conventional Commits (`git commit -m 'feat: minha feature'`)
+4. **Push** para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um **Pull Request**
 
-## 📝 Commits
-
-Este projeto segue o padrão [Conventional Commits](https://www.conventionalcommits.org/pt-br/v1.0.0/).
+### **Padrões de Commit**
+Este projeto segue o padrão [Conventional Commits](https://www.conventionalcommits.org/pt-br/v1.0.0/):
+- `feat:` novas funcionalidades
+- `fix:` correções de bugs
+- `docs:` documentação
+- `style:` formatação de código
+- `refactor:` refatoração
+- `test:` testes
+- `chore:` tarefas de manutenção
 
 ## 📄 Licença
 
@@ -138,8 +325,20 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 
 ## 🙏 Agradecimentos
 
-- Comunidades indígenas brasileiras
-- Professores e orientadores
-- Comunidade open source
+- **Comunidades indígenas brasileiras** - Inspiração e propósito
+- **Professores e orientadores** - Apoio e mentoria
+- **Comunidade open source** - Ferramentas e bibliotecas
+- **Spring Framework** - Framework robusto para APIs
+- **MySQL** - Banco de dados confiável
+
+## 🔗 Links Úteis
+
+- [Frontend Repository](../tekoa-hub-frontend)
+- [Spring Boot Documentation](https://spring.io/projects/spring-boot)
+- [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
+- [MySQL Documentation](https://dev.mysql.com/doc/)
+- [Conventional Commits](https://www.conventionalcommits.org/pt-br/v1.0.0/)
 
 ---
+
+**Tekoá Hub** - Preservando e valorizando a cultura indígena brasileira através da tecnologia.
