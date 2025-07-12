@@ -112,24 +112,6 @@ curl http://localhost:8080/api/contents
 3. **Teste o endpoint** `/api/contents` para listar conteúdos
 4. **Confirme que o banco** foi criado automaticamente (`tekoa_db`)
 
-### **Solução de Problemas**
-
-#### **Erro: "MySQL connection failed"**
-- Verifique se o MySQL está rodando: `sudo systemctl status mysql`
-- Confirme as credenciais no `application.properties`
-- Teste a conexão: `mysql -u root -p`
-
-#### **Erro: "Port 8080 already in use"**
-```bash
-# Encontre o processo usando a porta
-netstat -tulpn | grep :8080
-
-# Mate o processo ou use uma porta diferente
-# Adicione ao application.properties:
-server.port=8081
-```
-
-
 ### **Acesso ao Banco de Dados (Opcional)**
 
 Para visualizar os dados diretamente no MySQL:
