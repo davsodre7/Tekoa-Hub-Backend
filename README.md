@@ -129,27 +129,6 @@ netstat -tulpn | grep :8080
 server.port=8081
 ```
 
-#### **Erro: "Java not found"**
-```bash
-# Verifique a versão do Java
-java -version
-
-# Instale Java 17 se necessário
-# Ubuntu/Debian:
-sudo apt install openjdk-17-jdk
-
-# Windows: Baixe do Oracle ou OpenJDK
-```
-
-#### **Erro: "Maven not found"**
-```bash
-# Use o wrapper Maven incluído
-./mvnw spring-boot:run
-
-# Ou instale Maven globalmente
-# Ubuntu/Debian:
-sudo apt install maven
-```
 
 ### **Acesso ao Banco de Dados (Opcional)**
 
