@@ -43,23 +43,20 @@ O Tekoá Hub é uma plataforma digital dedicada à preservação e divulgação 
 - **Maven 3.8+**
 - **MySQL 8.0+** rodando localmente
 
-## 🔧 Configuração
+## 🚀 Como Executar o Backend
 
-### 1. Clone o repositório
+### **Passo a Passo Completo**
+
+#### 1. **Clone o repositório**
 ```bash
 git clone <url-do-repositorio>
 cd tekoa-hub-backend
 ```
 
-### 2. Configure o banco de dados
-O projeto utiliza MySQL como banco de dados principal para armazenar os dados culturais indígenas. O banco de dados é responsável por:
+#### 2. **Configure o banco de dados MySQL**
+O projeto utiliza MySQL como banco de dados principal para armazenar os dados culturais indígenas.
 
-- **Persistência de dados culturais**: Armazena categorias e conteúdos culturais indígenas
-- **Gestão de relacionamentos**: Mantém a estrutura hierárquica entre categorias e conteúdos
-- **Integridade dos dados**: Garante consistência e validação dos dados culturais
-- **Performance**: Otimiza consultas para busca e filtragem de conteúdos
-
-Para configurar o MySQL, certifique-se de que o MySQL está rodando e edite `src/main/resources/application.properties` se necessário:
+**Certifique-se de que o MySQL está rodando** e edite `src/main/resources/application.properties` se necessário:
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/tekoa_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
 spring.datasource.username=root
@@ -69,19 +66,105 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
 ```
 
-### 3. Build e execute
+#### 3. **Build e execute o projeto**
 ```bash
 ./mvnw spring-boot:run
 # ou
 mvn spring-boot:run
 ```
 
-O backend estará disponível em: [http://localhost:8080](http://localhost:8080)
+#### 4. **Acesse a aplicação**
+O backend estará disponível em: **http://localhost:8080**
 
-### 4. Acesse o banco MySQL (opcional)
-- Use um cliente MySQL como MySQL Workbench, phpMyAdmin ou DBeaver
+#### 5. **Verifique o funcionamento**
+Teste os endpoints da API:
+```bash
+# Listar categorias
+curl http://localhost:8080/api/categories
+
+# Listar conteúdos
+curl http://localhost:8080/api/contents
+```
+
+### **Comandos Rápidos**
+
+```bash
+# Executar em desenvolvimento
+./mvnw spring-boot:run
+
+# Build para produção
+./mvnw clean package
+
+# Executar testes
+./mvnw test
+
+# Compilar apenas
+./mvnw compile
+
+# Limpar build anterior
+./mvnw clean
+```
+
+### **Verificação de Funcionamento**
+
+1. **Acesse a API** em `http://localhost:8080/api/categories`
+2. **Verifique se retorna** a lista de categorias em JSON
+3. **Teste o endpoint** `/api/contents` para listar conteúdos
+4. **Confirme que o banco** foi criado automaticamente (`tekoa_db`)
+
+### **Solução de Problemas**
+
+#### **Erro: "MySQL connection failed"**
+- Verifique se o MySQL está rodando: `sudo systemctl status mysql`
+- Confirme as credenciais no `application.properties`
+- Teste a conexão: `mysql -u root -p`
+
+#### **Erro: "Port 8080 already in use"**
+```bash
+# Encontre o processo usando a porta
+netstat -tulpn | grep :8080
+
+# Mate o processo ou use uma porta diferente
+# Adicione ao application.properties:
+server.port=8081
+```
+
+#### **Erro: "Java not found"**
+```bash
+# Verifique a versão do Java
+java -version
+
+# Instale Java 17 se necessário
+# Ubuntu/Debian:
+sudo apt install openjdk-17-jdk
+
+# Windows: Baixe do Oracle ou OpenJDK
+```
+
+#### **Erro: "Maven not found"**
+```bash
+# Use o wrapper Maven incluído
+./mvnw spring-boot:run
+
+# Ou instale Maven globalmente
+# Ubuntu/Debian:
+sudo apt install maven
+```
+
+### **Acesso ao Banco de Dados (Opcional)**
+
+Para visualizar os dados diretamente no MySQL:
+- Use um cliente MySQL como **MySQL Workbench**, **phpMyAdmin** ou **DBeaver**
 - Conecte-se ao banco `tekoa_db` na porta 3306
 - Usuário: `root`, Senha: `root`
+
+### **Dados Iniciais**
+
+O sistema carrega automaticamente dados culturais indígenas incluindo:
+- **5 categorias culturais**: Histórias e Lendas, Artesanato, Música e Dança, Rituais e Cerimônias, Linguagem e Comunicação
+- **8 conteúdos culturais**: Uirapuru, Arte Marajoara, Toré dos Fulni-ô, Mandioca, Trançado Yanomami, Pintura Corporal Kadiwéu, Ritual do Quarup, Língua Guarani
+
+## 🔧 Configuração
 
 ## 🏗️ Estrutura do Projeto
 
