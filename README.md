@@ -33,7 +33,6 @@ O Tekoá Hub é uma plataforma digital dedicada à preservação e divulgação 
 - **Jakarta Validation** - Validação de dados
 
 ### **Security & Utilities**
-- **Spring Security Crypto** - Criptografia de dados sensíveis
 - **Lombok** - Redução de boilerplate code
 - **Spring Web** - Construção de APIs REST
 
@@ -76,16 +75,6 @@ mvn spring-boot:run
 #### 4. **Acesse a aplicação**
 O backend estará disponível em: **http://localhost:8080**
 
-#### 5. **Verifique o funcionamento**
-Teste os endpoints da API:
-```bash
-# Listar categorias
-curl http://localhost:8080/api/categories
-
-# Listar conteúdos
-curl http://localhost:8080/api/contents
-```
-
 ### **Comandos Rápidos**
 
 ```bash
@@ -94,9 +83,6 @@ curl http://localhost:8080/api/contents
 
 # Build para produção
 ./mvnw clean package
-
-# Executar testes
-./mvnw test
 
 # Compilar apenas
 ./mvnw compile
@@ -109,7 +95,6 @@ curl http://localhost:8080/api/contents
 
 1. **Acesse a API** em `http://localhost:8080/api/categories`
 2. **Verifique se retorna** a lista de categorias em JSON
-3. **Teste o endpoint** `/api/contents` para listar conteúdos
 4. **Confirme que o banco** foi criado automaticamente (`tekoa_db`)
 
 ### **Acesso ao Banco de Dados (Opcional)**
@@ -165,7 +150,7 @@ src/
 │       └── static/                        # Arquivos estáticos
 └── test/
     ├── java/com/tekoahub/
-    │   └── TekoaHubApplicationTests.java  # Testes da aplicação
+        └── TekoaHubApplicationTests.java  # Testes da aplicação
     └── resources/
         └── application-test.properties     # Configurações de teste
 ```
@@ -187,7 +172,6 @@ O MySQL é o banco de dados principal do Tekoá Hub, responsável por:
 
 ### **Ambientes:**
 - **Desenvolvimento**: `tekoa_db` - Banco principal para desenvolvimento
-- **Testes**: `tekoa_test_db` - Banco isolado para execução de testes automatizados
 
 ## 📱 Funcionalidades
 
@@ -200,7 +184,6 @@ O MySQL é o banco de dados principal do Tekoá Hub, responsável por:
 - ✅ **Validação de dados** com Jakarta Validation
 - ✅ **Tratamento global de exceções** com respostas padronizadas
 - ✅ **Configuração de CORS** para integração com frontend
-- ✅ **Criptografia de dados** sensíveis com Spring Security
 
 ### **Integração e Performance**
 - ✅ **Integração com MySQL** para persistência robusta
@@ -296,31 +279,16 @@ O sistema trabalha com dados culturais indígenas incluindo:
 ```bash
 ./mvnw spring-boot:run    # Inicia aplicação em desenvolvimento
 ./mvnw clean package      # Build para produção
-./mvnw test              # Executa testes
 ./mvnw compile           # Compila o projeto
 ./mvnw clean             # Limpa build anterior
 ```
-
-## 🧪 Testes
-
-Para executar os testes:
-```bash
-./mvnw test
-```
-
-Os testes utilizam um banco MySQL separado (`tekoa_test_db`) para garantir isolamento.
-
-### **Configuração de Teste**
-- Banco isolado: `tekoa_test_db`
-- DDL automático: `create-drop`
-- Dados de teste carregados automaticamente
 
 ## 🔒 Segurança
 
 - **Configuração de CORS** para integração com frontend
 - **Validação de dados** de entrada com Jakarta Validation
 - **Tratamento global de exceções** com respostas padronizadas
-- **Criptografia de dados** sensíveis com Spring Security Crypto
+- **Configuração de CORS** para integração com frontend
 
 ## 🚀 Deploy
 
@@ -356,12 +324,7 @@ Este projeto segue o padrão [Conventional Commits](https://www.conventionalcomm
 - `docs:` documentação
 - `style:` formatação de código
 - `refactor:` refatoração
-- `test:` testes
 - `chore:` tarefas de manutenção
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
 ## 👥 Autores
 
